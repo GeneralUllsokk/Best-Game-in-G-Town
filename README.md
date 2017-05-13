@@ -1,1 +1,1 @@
-# The-Best-Game-in-G-Town
+# Best-Game-in-G-Town
