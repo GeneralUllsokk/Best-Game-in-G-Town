@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 public class GameScreen implements Screen {
-
+    private final float heroMoveSpeed = 200;
     final GameClass game;
 
     Texture heroImage;
@@ -22,10 +22,10 @@ public class GameScreen implements Screen {
         heroImage = new Texture(Gdx.files.internal("billy.png"));
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1280, 720);
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         heroRect = new Rectangle();
-        heroRect.x = 1280/2-64/2;
+        heroRect.x = Gdx.graphics.getWidth()/2-64/2;
         heroRect.y = 20;
 
         heroRect.height = 64;
@@ -56,24 +56,24 @@ public class GameScreen implements Screen {
 
     private void heroMovement(){
         if(Gdx.input.isKeyPressed(Input.Keys.W))
-            heroRect.y += 200 * Gdx.graphics.getDeltaTime();
+            heroRect.y += heroMoveSpeed * Gdx.graphics.getDeltaTime();
         if(Gdx.input.isKeyPressed(Input.Keys.S))
-            heroRect.y -= 200 * Gdx.graphics.getDeltaTime();
+            heroRect.y -= heroMoveSpeed * Gdx.graphics.getDeltaTime();
         if(Gdx.input.isKeyPressed(Input.Keys.A))
-            heroRect.x -= 200 * Gdx.graphics.getDeltaTime();
+            heroRect.x -= heroMoveSpeed * Gdx.graphics.getDeltaTime();
         if(Gdx.input.isKeyPressed(Input.Keys.D))
-            heroRect.x += 200 * Gdx.graphics.getDeltaTime();
+            heroRect.x += heroMoveSpeed * Gdx.graphics.getDeltaTime();
     }
 
     private void heroCollision(){
         if(heroRect.x < 0)
             heroRect.x = 0;
-        if(heroRect.x > 1280-64)
-            heroRect.x = 1280-64;
+        if(heroRect.x > Gdx.graphics.getWidth()-64)
+            heroRect.x = Gdx.graphics.getWidth()-64;
         if(heroRect.y < 0)
             heroRect.y = 0;
-        if(heroRect.y > 720-64)
-            heroRect.y = 720-64;
+        if(heroRect.y > Gdx.graphics.getHeight()-64)
+            heroRect.y = Gdx.graphics.getHeight()-64;
     }
 
     @Override

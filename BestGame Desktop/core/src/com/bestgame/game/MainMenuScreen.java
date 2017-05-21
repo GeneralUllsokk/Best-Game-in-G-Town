@@ -14,7 +14,7 @@ public class MainMenuScreen implements Screen {
         this.game = game;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1280, 720);
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Best Game 2000!!", 1280/2, 720-64);
+        game.font.draw(game.batch, "Best Game 2000!!", Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()-64);
         game.font.draw(game.batch, "Press Enter to start.", 100,100);
         game.batch.end();
 
