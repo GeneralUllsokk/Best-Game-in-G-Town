@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class GameScreen implements Screen {
     private final float heroMoveSpeed = 200;
     final GameClass game;
+    MapClass map;
 
     Texture heroImage;
     Rectangle heroRect;
@@ -18,6 +19,8 @@ public class GameScreen implements Screen {
 
     public GameScreen(final GameClass game){
         this.game = game;
+        map = new MapClass();
+        map.create();
 
         heroImage = new Texture(Gdx.files.internal("billy.png"));
 
@@ -45,6 +48,7 @@ public class GameScreen implements Screen {
         camera.update();
 
         game.batch.setProjectionMatrix(camera.combined);
+        map.render();
 
         game.batch.begin();
         game.batch.draw(heroImage, heroRect.getX(), heroRect.getY(), heroRect.getWidth(), heroRect.getHeight());
