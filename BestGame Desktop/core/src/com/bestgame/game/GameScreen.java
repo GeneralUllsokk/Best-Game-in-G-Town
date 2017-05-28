@@ -28,8 +28,8 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         heroRect = new Rectangle();
-        heroRect.x = 120;
-        heroRect.y = 20;
+        heroRect.x = Gdx.graphics.getWidth()/2;
+        heroRect.y = Gdx.graphics.getHeight()/2;
         heroRect.height = 90;
         heroRect.width = 90;
     }
