@@ -22,17 +22,16 @@ public class GameScreen implements Screen {
         map = new MapClass();
         map.create();
 
-        heroImage = new Texture(Gdx.files.internal("billy.png"));
+        heroImage = new Texture(Gdx.files.internal("spriteMed.png"));
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         heroRect = new Rectangle();
-        heroRect.x = Gdx.graphics.getWidth()/2-64/2;
+        heroRect.x = 120;
         heroRect.y = 20;
-
-        heroRect.height = 64;
-        heroRect.width = 64;
+        heroRect.height = 90;
+        heroRect.width = 90;
     }
 
     @Override
@@ -42,7 +41,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.2f, 0, 0, 1);
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();

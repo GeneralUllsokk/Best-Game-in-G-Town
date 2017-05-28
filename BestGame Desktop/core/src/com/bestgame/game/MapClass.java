@@ -24,7 +24,7 @@ public class MapClass extends ApplicationAdapter implements InputProcessor {
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
-        camera.zoom = (float) 0.5;
+        camera.zoom = (float) 0.7;
         camera.translate(-Gdx.graphics.getWidth()/(float)4, -Gdx.graphics.getHeight()/(float)3.8);
         tiledMap = new TmxMapLoader().load("placeholder123.tmx");
         tiledMapRenderer = new IsometricStaggeredTiledMapRenderer(tiledMap);
