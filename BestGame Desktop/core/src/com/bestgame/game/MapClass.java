@@ -24,9 +24,8 @@ public class MapClass extends ApplicationAdapter implements InputProcessor {
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
-        camera.translate(128,224);
+        camera.translate(-128,0);
         camera.zoom = (float) 0.7;
-        camera.translate(-Gdx.graphics.getWidth()/(float)4, -Gdx.graphics.getHeight()/(float)3.8);
         tiledMap = new TmxMapLoader().load("placeholder123.tmx");
         tiledMapRenderer = new IsometricStaggeredTiledMapRenderer(tiledMap);
         Gdx.input.setInputProcessor(this);
@@ -62,6 +61,10 @@ public class MapClass extends ApplicationAdapter implements InputProcessor {
             tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
         if(keycode == Input.Keys.NUM_2)
             tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+        if(keycode == Input.Keys.NUM_3) {
+            tiledMap.getLayers().get(2).setVisible(!tiledMap.getLayers().get(2).isVisible());
+            tiledMap.getLayers().get(3).setVisible(!tiledMap.getLayers().get(3).isVisible());
+        }
         return false;
     }
 
