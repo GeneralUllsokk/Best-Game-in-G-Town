@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameClass extends Game {
-	private final String VERSION = "0.00.03";
+	private final String VERSION = "0.00.04";
 	public SpriteBatch batch;
 	public BitmapFont font;
 

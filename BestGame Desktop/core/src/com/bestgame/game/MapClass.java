@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -15,6 +16,23 @@ public class MapClass extends ApplicationAdapter implements InputProcessor {
     TiledMap tiledMap;
     OrthographicCamera camera;
     TiledMapRenderer tiledMapRenderer;
+    MapProperties prop;
+    private float cameraXpos = 0;
+    private float cameraYpos = 0;
+    private boolean collideTop = false;
+    private boolean collideBot = false;
+    private boolean collideLeft = false;
+    private boolean collideRight = false;
+
+    private int mapWidth;
+    private int mapHeight;
+    private int tilePixelWidth;
+    private int tilePixelHeight;
+
+    private int mapPixelWidth;
+    private int mapPixelHeight;
+
+    private float movespeed = 200;
 
     @Override
     public void create(){
@@ -25,9 +43,11 @@ public class MapClass extends ApplicationAdapter implements InputProcessor {
         camera.setToOrtho(false,w,h);
         camera.update();
         camera.translate(-128,0);
+        cameraXpos += -128;
         camera.zoom = (float) 0.7;
         tiledMap = new TmxMapLoader().load("placeholder123.tmx");
         tiledMapRenderer = new IsometricStaggeredTiledMapRenderer(tiledMap);
+        setCameraLimits(tiledMap);
         Gdx.input.setInputProcessor(this);
     }
 
@@ -36,11 +56,48 @@ public class MapClass extends ApplicationAdapter implements InputProcessor {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        heroMovement();
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
     }
 
+    private void heroMovement(){
+        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if (cameraYpos < mapPixelHeight / 28) {
+                camera.translate(0, movespeed * Gdx.graphics.getDeltaTime());
+                cameraYpos += movespeed * Gdx.graphics.getDeltaTime();
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+            if(cameraYpos > -mapPixelHeight / 12) {
+                camera.translate(0, -movespeed * Gdx.graphics.getDeltaTime());
+                cameraYpos += -movespeed * Gdx.graphics.getDeltaTime();
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+            if(cameraXpos > -mapPixelWidth / 7) {
+                camera.translate(-movespeed * Gdx.graphics.getDeltaTime(), 0);
+                cameraXpos += -movespeed * Gdx.graphics.getDeltaTime();
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+            if(cameraXpos < mapPixelWidth / 9) {
+                camera.translate(movespeed * Gdx.graphics.getDeltaTime(), 0);
+                cameraXpos += movespeed * Gdx.graphics.getDeltaTime();
+            }
+        }
+    }
+
+    private void setCameraLimits(TiledMap tiledMap){
+        prop = tiledMap.getProperties();
+        mapWidth = prop.get("width", Integer.class);
+        mapHeight = prop.get("height", Integer.class);
+        tilePixelWidth = prop.get("tilewidth", Integer.class);
+        tilePixelHeight = prop.get("tileheight", Integer.class);
+        mapPixelWidth = mapWidth * tilePixelWidth;
+        mapPixelHeight = mapHeight * tilePixelHeight;
+    }
 
     @Override
     public boolean keyDown(int keycode) {
